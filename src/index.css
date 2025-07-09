@@ -1,12 +1,11 @@
+/* Modern, clean, TV-themed style */
 :root {
-    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: "Segoe UI", "Avenir", Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
-
     color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
-
+    color: #222;
+    background: linear-gradient(135deg, #232526 0%, #414345 100%);
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -15,54 +14,195 @@
 
 a {
     font-weight: 500;
-    color: #646cff;
-    text-decoration: inherit;
+    color: #4f8cff;
+    text-decoration: none;
+    transition: color 0.2s;
 }
 a:hover {
-    color: #535bf2;
+    color: #1e40af;
 }
 
 body {
     margin: 0;
-    display: flex;
-    place-items: center;
     min-width: 320px;
     min-height: 100vh;
+    background: inherit;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 2rem 0;
 }
 
 h1 {
-    font-size: 3.2em;
+    font-size: 2.8em;
     line-height: 1.1;
+    color: #fff;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px #000a;
+    margin-bottom: 1.5rem;
 }
 
 button {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
+    border-radius: 12px;
+    border: none;
+    padding: 0.7em 1.5em;
+    font-size: 1.05em;
+    font-weight: 600;
     font-family: inherit;
-    background-color: #1a1a1a;
+    background: linear-gradient(90deg, #4f8cff 0%, #38b6ff 100%);
+    color: #fff;
     cursor: pointer;
-    transition: border-color 0.25s;
+    box-shadow: 0 2px 8px #0002;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
 }
 button:hover {
-    border-color: #646cff;
+    background: linear-gradient(90deg, #2563eb 0%, #0ea5e9 100%);
+    box-shadow: 0 4px 16px #0003;
+    transform: translateY(-2px) scale(1.04);
 }
 button:focus,
 button:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
+    outline: 3px solid #4f8cff;
 }
 
-@media (prefers-color-scheme: light) {
-    :root {
-        color: #213547;
-        background-color: #ffffff;
+.card,
+.bg-white {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px #0002;
+    padding: 2em 1.5em;
+    margin-bottom: 2em;
+    transition: box-shadow 0.2s;
+}
+.card:hover,
+.bg-white:hover {
+    box-shadow: 0 8px 32px #0003;
+}
+
+.read-the-docs {
+    color: #888;
+}
+
+/* Custom for TVWonder */
+.text-2xl {
+    font-size: 2em;
+    color: #fff;
+    text-shadow: 0 2px 8px #000a;
+}
+.font-bold {
+    font-weight: 700;
+}
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+.p-4 {
+    padding: 2rem;
+}
+.max-w-xl {
+    max-width: 480px;
+}
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+.text-center {
+    text-align: center;
+}
+
+/* Attribute/genre buttons */
+.bg-yellow-300 {
+    background: linear-gradient(90deg, #ffe066 0%, #ffd43b 100%);
+    color: #7c5e00;
+    border: none;
+    font-weight: 600;
+}
+.bg-yellow-300:hover {
+    background: linear-gradient(90deg, #ffd43b 0%, #fab005 100%);
+    color: #5c4300;
+}
+
+.bg-blue-500 {
+    background: linear-gradient(90deg, #4f8cff 0%, #38b6ff 100%);
+    color: #fff;
+}
+.bg-blue-500:hover {
+    background: linear-gradient(90deg, #2563eb 0%, #0ea5e9 100%);
+}
+
+.bg-red-300 {
+    background: linear-gradient(90deg, #ff6b6b 0%, #ff8787 100%);
+    color: #fff;
+    border: none;
+    font-weight: 600;
+}
+.bg-red-300:hover {
+    background: linear-gradient(90deg, #fa5252 0%, #ff8787 100%);
+}
+
+.rounded-full {
+    border-radius: 9999px;
+}
+.rounded-xl {
+    border-radius: 1.25rem;
+}
+.shadow-lg {
+    box-shadow: 0 8px 32px #0002;
+}
+
+.flex {
+    display: flex;
+}
+.flex-wrap {
+    flex-wrap: wrap;
+}
+.justify-center {
+    justify-content: center;
+}
+.gap-2 {
+    gap: 0.5rem;
+}
+.mt-1 {
+    margin-top: 0.25rem;
+}
+.mt-2 {
+    margin-top: 0.5rem;
+}
+.mt-4 {
+    margin-top: 1.5rem;
+}
+.text-lg {
+    font-size: 1.25em;
+}
+.font-medium {
+    font-weight: 500;
+}
+
+.text-sm {
+    font-size: 0.95em;
+}
+
+.text-gray-600 {
+    color: #6b7280;
+}
+
+@media (max-width: 600px) {
+    .p-4,
+    .card,
+    .bg-white {
+        padding: 1em 0.5em;
     }
-    a:hover {
-        color: #747bff;
+    h1 {
+        font-size: 2em;
     }
-    button {
-        background-color: #f9f9f9;
+    .max-w-xl {
+        max-width: 98vw;
     }
 }

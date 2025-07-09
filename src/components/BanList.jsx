@@ -5,7 +5,7 @@ const BanList = ({ banList, onRemove }) => {
 
     return (
         <div className="mt-4">
-            <h3 className="text-lg font-medium mb-2">Banned Attributes:</h3>
+            <h3 className="text-lg font-medium mb-2 ban-text">Banned List:</h3>
             <div className="flex flex-wrap justify-center gap-2">
                 {banList.map((attribute) => (
                     <button

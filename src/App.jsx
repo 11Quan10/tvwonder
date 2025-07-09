@@ -12,7 +12,7 @@ const App = () => {
         let valid = false;
 
         while (!valid) {
-            const randomId = Math.floor(Math.random() * 30000); // TVMaze has many entries
+            const randomId = Math.floor(Math.random() * 85844);
             try {
                 const res = await fetch(
                     `https://api.tvmaze.com/shows/${randomId}`
@@ -24,15 +24,12 @@ const App = () => {
 
                 const attributeConflict =
                     data.genres.length < 1 ||
-                    data.genres.some((g) => banList.includes(g)) ||
-                    banList.includes(data.language) ||
-                    banList.includes(data.type);
+                    data.genres.some((g) => banList.includes("Genre: " + g)) ||
+                    banList.includes("Language: " + data.language) ||
+                    banList.includes("Type: " + data.type);
                 if (!attributeConflict && data.image) {
                     newShow = data;
                     valid = true;
-                    console.log("should be valid for id: " + randomId);
-                } else {
-                    console.log("failed id: " + randomId);
                 }
             } catch (err) {
                 continue;
@@ -54,7 +51,7 @@ const App = () => {
 
     return (
         <div className="p-4 max-w-xl mx-auto text-center">
-            <h1 className="text-2xl font-bold mb-4">📺 TV Show Discovery</h1>
+            <h1 className="text-2xl font-bold mb-4">📺 TV Wonder</h1>
             <button
                 onClick={fetchRandomShow}
                 className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-xl"
