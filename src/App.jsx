@@ -1,35 +1,75 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import DisplayCard from "./components/DisplayCard";
+import BanList from "./components/BanList";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+    const [show, setShow] = useState(null);
+    const [banList, setBanList] = useState([]);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    const fetchRandomShow = async () => {
+        let newShow = null;
+        let valid = false;
 
-export default App
+        while (!valid) {
+            const randomId = Math.floor(Math.random() * 30000); // TVMaze has many entries
+            try {
+                const res = await fetch(
+                    `https://api.tvmaze.com/shows/${randomId}`
+                );
+                if (!res.ok) {
+                    continue;
+                }
+                const data = await res.json();
+
+                const attributeConflict =
+                    data.genres.length < 1 ||
+                    data.genres.some((g) => banList.includes(g)) ||
+                    banList.includes(data.language) ||
+                    banList.includes(data.type);
+                if (!attributeConflict && data.image) {
+                    newShow = data;
+                    valid = true;
+                    console.log("should be valid for id: " + randomId);
+                } else {
+                    console.log("failed id: " + randomId);
+                }
+            } catch (err) {
+                continue;
+            }
+        }
+
+        setShow(newShow);
+    };
+
+    const handleAttributeClick = (attribute) => {
+        if (!banList.includes(attribute)) {
+            setBanList([...banList, attribute]);
+        }
+    };
+
+    const removeFromBanList = (attribute) => {
+        setBanList(banList.filter((a) => a !== attribute));
+    };
+
+    return (
+        <div className="p-4 max-w-xl mx-auto text-center">
+            <h1 className="text-2xl font-bold mb-4">📺 TV Show Discovery</h1>
+            <button
+                onClick={fetchRandomShow}
+                className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-xl"
+            >
+                Discover Show
+            </button>
+            {show && (
+                <DisplayCard
+                    show={show}
+                    onAttributeClick={handleAttributeClick}
+                />
+            )}
+            <BanList banList={banList} onRemove={removeFromBanList} />
+        </div>
+    );
+};
+
+export default App;
